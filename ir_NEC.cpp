@@ -9,16 +9,18 @@
 //                           N   N  EEEEE   CCCC
 //==============================================================================
 
-#define NEC_BITS          32
-#define NEC_HDR_MARK    9000
-#define NEC_HDR_SPACE   4500
-#define NEC_BIT_MARK     560
-#define NEC_ONE_SPACE   1690
-#define NEC_ZERO_SPACE   560
-#define NEC_RPT_SPACE   2250
+#if defined(SEND_NEC) || defined(DECODE_NEC) || defined(EMULATE_NEC)
+	#define NEC_BITS          32
+	#define NEC_HDR_MARK    9000
+	#define NEC_HDR_SPACE   4500
+	#define NEC_BIT_MARK     560
+	#define NEC_ONE_SPACE   1690
+	#define NEC_ZERO_SPACE   560
+	#define NEC_RPT_SPACE   2250
+#endif
 
 //+=============================================================================
-#if EMULATE_NEC
+#ifdef EMULATE_NEC
 void  IRemulate::emulateNEC (unsigned long data,  int nbits)
 {
 	// Manage outputs
@@ -46,7 +48,7 @@ void  IRemulate::emulateNEC (unsigned long data,  int nbits)
 #endif
 
 //+=============================================================================
-#if SEND_NEC
+#ifdef SEND_NEC
 void  IRsend::sendNEC (unsigned long data,  int nbits)
 {
 	// Set IR carrier frequency
@@ -76,7 +78,7 @@ void  IRsend::sendNEC (unsigned long data,  int nbits)
 //+=============================================================================
 // NECs have a repeat only 4 items long
 //
-#if DECODE_NEC
+#ifdef DECODE_NEC
 bool  IRrecv::decodeNEC (decode_results *results)
 {
 	long  data   = 0;  // We decode in to here; Start with nothing

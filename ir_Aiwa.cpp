@@ -12,19 +12,21 @@
 // Based off the RC-T501 RCU
 // Lirc file http://lirc.sourceforge.net/remotes/aiwa/RC-T501
 
-#define AIWA_RC_T501_HZ            38
-#define AIWA_RC_T501_BITS          15
-#define AIWA_RC_T501_PRE_BITS      26
-#define AIWA_RC_T501_POST_BITS      1
-#define AIWA_RC_T501_SUM_BITS    (AIWA_RC_T501_PRE_BITS + AIWA_RC_T501_BITS + AIWA_RC_T501_POST_BITS)
-#define AIWA_RC_T501_HDR_MARK    8800
-#define AIWA_RC_T501_HDR_SPACE   4500
-#define AIWA_RC_T501_BIT_MARK     500
-#define AIWA_RC_T501_ONE_SPACE    600
-#define AIWA_RC_T501_ZERO_SPACE  1700
+#if defined(SEND_AIWA_RC_T501) || defined(DECODE_AIWA_RC_T501) || defined(EMULATE_AIWA_RC_T501)
+	#define AIWA_RC_T501_HZ            38
+	#define AIWA_RC_T501_BITS          15
+	#define AIWA_RC_T501_PRE_BITS      26
+	#define AIWA_RC_T501_POST_BITS      1
+	#define AIWA_RC_T501_SUM_BITS    (AIWA_RC_T501_PRE_BITS + AIWA_RC_T501_BITS + AIWA_RC_T501_POST_BITS)
+	#define AIWA_RC_T501_HDR_MARK    8800
+	#define AIWA_RC_T501_HDR_SPACE   4500
+	#define AIWA_RC_T501_BIT_MARK     500
+	#define AIWA_RC_T501_ONE_SPACE    600
+	#define AIWA_RC_T501_ZERO_SPACE  1700
+#endif
 
 //+=============================================================================
-#if SEND_AIWA_RC_T501
+#ifdef SEND_AIWA_RC_T501
 void  IRsend::sendAiwaRCT501 (int code)
 {
 	unsigned long  pre = 0x0227EEC0;  // 26-bits
@@ -70,7 +72,7 @@ void  IRsend::sendAiwaRCT501 (int code)
 #endif
 
 //+=============================================================================
-#if DECODE_AIWA_RC_T501
+#ifdef DECODE_AIWA_RC_T501
 bool  IRrecv::decodeAiwaRCT501 (decode_results *results)
 {
 	int  data   = 0;

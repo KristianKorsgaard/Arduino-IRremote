@@ -10,7 +10,7 @@
 // t1 is the time interval for a single bit in microseconds.
 // Returns -1 for error (measured time interval is not a multiple of t1).
 //
-#if (DECODE_RC5 || DECODE_RC6)
+#if defined(DECODE_RC5) || defined(DECODE_RC6)
 int  IRrecv::getRClevel (decode_results *results,  int *offset,  int *used,  int t1)
 {
 	int  width;
@@ -49,12 +49,14 @@ int  IRrecv::getRClevel (decode_results *results,  int *offset,  int *used,  int
 //
 // NB: First bit must be a one (start bit)
 //
-#define MIN_RC5_SAMPLES     11
-#define RC5_T1             889
-#define RC5_RPT_LENGTH   46000
+#if defined(SEND_RC5) || defined(DECODE_RC5) || defined(EMULATE_RC5)
+	#define MIN_RC5_SAMPLES     11
+	#define RC5_T1             889
+	#define RC5_RPT_LENGTH   46000
+#endif
 
 //+=============================================================================
-#if SEND_RC5
+#ifdef SEND_RC5
 void  IRsend::sendRC5 (unsigned long data,  int nbits)
 {
 	// Set IR carrier frequency
@@ -81,7 +83,7 @@ void  IRsend::sendRC5 (unsigned long data,  int nbits)
 #endif
 
 //+=============================================================================
-#if DECODE_RC5
+#ifdef DECODE_RC5
 bool  IRrecv::decodeRC5 (decode_results *results)
 {
 	int   nbits;
@@ -122,13 +124,15 @@ bool  IRrecv::decodeRC5 (decode_results *results)
 //
 // NB : Caller needs to take care of flipping the toggle bit
 //
-#define MIN_RC6_SAMPLES      1
-#define RC6_HDR_MARK      2666
-#define RC6_HDR_SPACE      889
-#define RC6_T1             444
-#define RC6_RPT_LENGTH   46000
+#if defined(SEND_RC6) || defined(DECODE_RC6) || defined(EMULATE_RC6)
+	#define MIN_RC6_SAMPLES      1
+	#define RC6_HDR_MARK      2666
+	#define RC6_HDR_SPACE      889
+	#define RC6_T1             444
+	#define RC6_RPT_LENGTH   46000
+#endif
 
-#if SEND_RC6
+#ifdef SEND_RC6
 void  IRsend::sendRC6 (unsigned long data,  int nbits)
 {
 	// Set IR carrier frequency
@@ -160,7 +164,7 @@ void  IRsend::sendRC6 (unsigned long data,  int nbits)
 #endif
 
 //+=============================================================================
-#if DECODE_RC6
+#ifdef DECODE_RC6
 bool  IRrecv::decodeRC6 (decode_results *results)
 {
 	int   nbits;

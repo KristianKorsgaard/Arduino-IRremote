@@ -21,16 +21,18 @@
 //   DISH NETWORK (echostar 301):
 //   http://lirc.sourceforge.net/remotes/echostar/301_501_3100_5100_58xx_59xx
 
-#define DISH_BITS          16
-#define DISH_HDR_MARK     400
-#define DISH_HDR_SPACE   6100
-#define DISH_BIT_MARK     400
-#define DISH_ONE_SPACE   1700
-#define DISH_ZERO_SPACE  2800
-#define DISH_RPT_SPACE   6200
+#if defined(SEND_DISH) || defined(DECODE_DISH) || defined(EMULATE_DISH)
+	#define DISH_BITS          16
+	#define DISH_HDR_MARK     400
+	#define DISH_HDR_SPACE   6100
+	#define DISH_BIT_MARK     400
+	#define DISH_ONE_SPACE   1700
+	#define DISH_ZERO_SPACE  2800
+	#define DISH_RPT_SPACE   6200
+#endif
 
 //+=============================================================================
-#if SEND_DISH
+#ifdef SEND_DISH
 void  IRsend::sendDISH (unsigned long data,  int nbits)
 {
 	// Set IR carrier frequency
@@ -51,4 +53,3 @@ void  IRsend::sendDISH (unsigned long data,  int nbits)
 	mark(DISH_HDR_MARK); //added 26th March 2016, by AnalysIR ( https://www.AnalysIR.com )
 }
 #endif
-

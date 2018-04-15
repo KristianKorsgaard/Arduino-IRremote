@@ -20,72 +20,72 @@ int  IRrecv::decode (decode_results *results)
 
 	if (irparams.rcvstate != STATE_STOP)  return false ;
 
-#if DECODE_NEC
+#ifdef DECODE_NEC
 	DBG_PRINTLN("Attempting NEC decode");
 	if (decodeNEC(results))  return true ;
 #endif
 
-#if DECODE_SONY
+#ifdef DECODE_SONY
 	DBG_PRINTLN("Attempting Sony decode");
 	if (decodeSony(results))  return true ;
 #endif
 
-#if DECODE_SANYO
+#ifdef DECODE_SANYO
 	DBG_PRINTLN("Attempting Sanyo decode");
 	if (decodeSanyo(results))  return true ;
 #endif
 
-#if DECODE_MITSUBISHI
+#ifdef DECODE_MITSUBISHI
 	DBG_PRINTLN("Attempting Mitsubishi decode");
 	if (decodeMitsubishi(results))  return true ;
 #endif
 
-#if DECODE_RC5
+#ifdef DECODE_RC5
 	DBG_PRINTLN("Attempting RC5 decode");
 	if (decodeRC5(results))  return true ;
 #endif
 
-#if DECODE_RC6
+#ifdef DECODE_RC6
 	DBG_PRINTLN("Attempting RC6 decode");
 	if (decodeRC6(results))  return true ;
 #endif
 
-#if DECODE_PANASONIC
+#ifdef DECODE_PANASONIC
 	DBG_PRINTLN("Attempting Panasonic decode");
 	if (decodePanasonic(results))  return true ;
 #endif
 
-#if DECODE_LG
+#ifdef DECODE_LG
 	DBG_PRINTLN("Attempting LG decode");
 	if (decodeLG(results))  return true ;
 #endif
 
-#if DECODE_JVC
+#ifdef DECODE_JVC
 	DBG_PRINTLN("Attempting JVC decode");
 	if (decodeJVC(results))  return true ;
 #endif
 
-#if DECODE_SAMSUNG
+#ifdef DECODE_SAMSUNG
 	DBG_PRINTLN("Attempting SAMSUNG decode");
 	if (decodeSAMSUNG(results))  return true ;
 #endif
 
-#if DECODE_WHYNTER
+#ifdef DECODE_WHYNTER
 	DBG_PRINTLN("Attempting Whynter decode");
 	if (decodeWhynter(results))  return true ;
 #endif
 
-#if DECODE_AIWA_RC_T501
+#ifdef DECODE_AIWA_RC_T501
 	DBG_PRINTLN("Attempting Aiwa RC-T501 decode");
 	if (decodeAiwaRCT501(results))  return true ;
 #endif
 
-#if DECODE_DENON
+#ifdef DECODE_DENON
 	DBG_PRINTLN("Attempting Denon decode");
 	if (decodeDenon(results))  return true ;
 #endif
 
-#if DECODE_LEGO_PF
+#ifdef DECODE_LEGO_PF
 	DBG_PRINTLN("Attempting Lego Power Functions");
 	if (decodeLegoPowerFunctions(results))  return true ;
 #endif

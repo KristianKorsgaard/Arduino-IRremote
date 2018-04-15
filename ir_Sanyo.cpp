@@ -12,16 +12,18 @@
 // I think this is a Sanyo decoder:  Serial = SA 8650B
 // Looks like Sony except for timings, 48 chars of data and time/space different
 
-#define SANYO_BITS                   12
-#define SANYO_HDR_MARK	           3500  // seen range 3500
-#define SANYO_HDR_SPACE	            950  // seen 950
-#define SANYO_ONE_MARK	           2400  // seen 2400
-#define SANYO_ZERO_MARK             700  // seen 700
-#define SANYO_DOUBLE_SPACE_USECS    800  // usually ssee 713 - not using ticks as get number wrapround
-#define SANYO_RPT_LENGTH          45000
+#if defined(SEND_SANYO) || defined(DECODE_SANYO) || defined(EMULATE_SANYO)
+	#define SANYO_BITS                   12
+	#define SANYO_HDR_MARK	           3500  // seen range 3500
+	#define SANYO_HDR_SPACE	            950  // seen 950
+	#define SANYO_ONE_MARK	           2400  // seen 2400
+	#define SANYO_ZERO_MARK             700  // seen 700
+	#define SANYO_DOUBLE_SPACE_USECS    800  // usually ssee 713 - not using ticks as get number wrapround
+	#define SANYO_RPT_LENGTH          45000
+#endif
 
 //+=============================================================================
-#if DECODE_SANYO
+#ifdef DECODE_SANYO
 bool  IRrecv::decodeSanyo (decode_results *results)
 {
 	long  data   = 0;

@@ -9,15 +9,17 @@
 //       P      A   A  N   N  A   A  SSSS    OOO   N   N  IIIII   CCCC
 //==============================================================================
 
-#define PANASONIC_BITS          48
-#define PANASONIC_HDR_MARK    3502
-#define PANASONIC_HDR_SPACE   1750
-#define PANASONIC_BIT_MARK     502
-#define PANASONIC_ONE_SPACE   1244
-#define PANASONIC_ZERO_SPACE   400
+#if defined(SEND_PANASONIC) || defined(DECODE_PANASONIC) || defined(EMULATE_PANASONIC)
+	#define PANASONIC_BITS          48
+	#define PANASONIC_HDR_MARK    3502
+	#define PANASONIC_HDR_SPACE   1750
+	#define PANASONIC_BIT_MARK     502
+	#define PANASONIC_ONE_SPACE   1244
+	#define PANASONIC_ZERO_SPACE   400
+#endif
 
 //+=============================================================================
-#if SEND_PANASONIC
+#ifdef SEND_PANASONIC
 void  IRsend::sendPanasonic (unsigned int address,  unsigned long data)
 {
 	// Set IR carrier frequency
@@ -48,7 +50,7 @@ void  IRsend::sendPanasonic (unsigned int address,  unsigned long data)
 #endif
 
 //+=============================================================================
-#if DECODE_PANASONIC
+#ifdef DECODE_PANASONIC
 bool  IRrecv::decodePanasonic (decode_results *results)
 {
     unsigned long long  data   = 0;
@@ -75,4 +77,3 @@ bool  IRrecv::decodePanasonic (decode_results *results)
     return true;
 }
 #endif
-

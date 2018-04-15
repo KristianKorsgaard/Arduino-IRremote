@@ -27,74 +27,78 @@
 // Supported IR protocols
 // Each protocol you include costs memory and, during decode, costs time
 // Disable (set to 0) all the protocols you do not need/want!
-//
-#define DECODE_RC5           1
-#define SEND_RC5             1
-#define EMULATE_RC5          0 // NOT IMPLEMENTED YET
 
-#define DECODE_RC6           1
-#define SEND_RC6             1
-#define EMULATE_RC6          0 // NOT IMPLEMENTED YET
+#ifndef EXCLUDE_ALL
 
-#define DECODE_NEC           1
-#define SEND_NEC             1
-#define EMULATE_NEC          1
+#define DECODE_RC5
+#define SEND_RC5
+// #define EMULATE_RC5          // NOT IMPLEMENTED YET
 
-#define DECODE_SONY          1
-#define SEND_SONY            1
-#define EMULATE_SONY         0 // NOT IMPLEMENTED YET
+#define DECODE_RC6
+#define SEND_RC6
+// #define EMULATE_RC6          // NOT IMPLEMENTED YET
 
-#define DECODE_PANASONIC     1
-#define SEND_PANASONIC       1
-#define EMULATE_PANASONIC    0 // NOT IMPLEMENTED YET
+#define DECODE_NEC
+#define SEND_NEC
+#define EMULATE_NEC
 
-#define DECODE_JVC           1
-#define SEND_JVC             1
-#define EMULATE_JVC          0 // NOT IMPLEMENTED YET
+#define DECODE_SONY
+#define SEND_SONY
+// #define EMULATE_SONY         // NOT IMPLEMENTED YET
 
-#define DECODE_SAMSUNG       1
-#define SEND_SAMSUNG         1
-#define EMULATE_SAMSUNG      0 // NOT IMPLEMENTED YET
+#define DECODE_PANASONIC
+#define SEND_PANASONIC
+// #define EMULATE_PANASONIC    // NOT IMPLEMENTED YET
 
-#define DECODE_WHYNTER       1
-#define SEND_WHYNTER         1
-#define EMULATE_WHYNTER      0 // NOT IMPLEMENTED YET
+#define DECODE_JVC
+#define SEND_JVC
+// #define EMULATE_JVC          // NOT IMPLEMENTED YET
 
-#define DECODE_AIWA_RC_T501  1
-#define SEND_AIWA_RC_T501    1
-#define EMULATE_AIWA_RC_T501 0 // NOT IMPLEMENTED YET
+#define DECODE_SAMSUNG
+#define SEND_SAMSUNG
+// #define EMULATE_SAMSUNG      // NOT IMPLEMENTED YET
 
-#define DECODE_LG            1
-#define SEND_LG              1
-#define EMULATE_LG           0 // NOT IMPLEMENTED YET
+#define DECODE_WHYNTER
+#define SEND_WHYNTER
+// #define EMULATE_WHYNTER      // NOT IMPLEMENTED YET
 
-#define DECODE_SANYO         1
-#define SEND_SANYO           0 // NOT WRITTEN
-#define EMULATE_SANYO        0 // NOT WRITTEN
+#define DECODE_AIWA_RC_T501
+#define SEND_AIWA_RC_T501
+// #define EMULATE_AIWA_RC_T501 // NOT IMPLEMENTED YET
 
-#define DECODE_MITSUBISHI    1
-#define SEND_MITSUBISHI      0 // NOT WRITTEN
-#define EMULATE_MITSUBISHI   0 // NOT WRITTEN
+#define DECODE_LG
+#define SEND_LG
+// #define EMULATE_LG           // NOT IMPLEMENTED YET
 
-#define DECODE_DISH          0 // NOT WRITTEN
-#define SEND_DISH            1
-#define EMULATE_DISH         0 // NOT IMPLEMENTED YET
+#define DECODE_SANYO
+// #define SEND_SANYO           // NOT WRITTEN
+// #define EMULATE_SANYO        // NOT WRITTEN
 
-#define DECODE_SHARP         0 // NOT WRITTEN
-#define SEND_SHARP           1
-#define EMULATE_SHARP        0 // NOT IMPLEMENTED YET
+#define DECODE_MITSUBISHI
+// #define SEND_MITSUBISHI      // NOT WRITTEN
+// #define EMULATE_MITSUBISHI   // NOT WRITTEN
 
-#define DECODE_DENON         1
-#define SEND_DENON           1
-#define EMULATE_DENON        0 // NOT IMPLEMENTED YET
+// #define DECODE_DISH          // NOT WRITTEN
+#define SEND_DISH
+// #define EMULATE_DISH         // NOT IMPLEMENTED YET
 
-#define DECODE_PRONTO        0 // This function doe not logically make sense
-#define SEND_PRONTO          1
-#define EMULATE_PRONTO       0 // NOT IMPLEMENTED YET
+// #define DECODE_SHARP         // NOT WRITTEN
+#define SEND_SHARP
+// #define EMULATE_SHARP        // NOT IMPLEMENTED YET
 
-#define DECODE_LEGO_PF       0 // NOT WRITTEN
-#define SEND_LEGO_PF         1
-#define EMULATE_LEGO_PF      0 // NOT IMPLEMENTED YET
+#define DECODE_DENON
+#define SEND_DENON
+// #define EMULATE_DENON        // NOT IMPLEMENTED YET
+
+// #define DECODE_PRONTO        // This function doe not logically make sense
+#define SEND_PRONTO
+// #define EMULATE_PRONTO       // NOT IMPLEMENTED YET
+
+// #define DECODE_LEGO_PF       // NOT WRITTEN
+#define SEND_LEGO_PF
+// #define EMULATE_LEGO_PF      // NOT IMPLEMENTED YET
+
+#endif
 
 //------------------------------------------------------------------------------
 // When sending a Pronto code we request to send either the "once" code
@@ -106,10 +110,10 @@
 // The last paragraph on this page discusses the rationale of this idea:
 //   http://www.remotecentral.com/features/irdisp2.htm
 //
-#define PRONTO_ONCE        false
-#define PRONTO_REPEAT      true
-#define PRONTO_FALLBACK    true
-#define PRONTO_NOFALLBACK  false
+// #define PRONTO_ONCE
+#define PRONTO_REPEAT
+#define PRONTO_FALLBACK
+// #define PRONTO_NOFALLBACK
 
 //------------------------------------------------------------------------------
 // An enumerated list of all supported formats
@@ -140,14 +144,14 @@ typedef
 decode_type_t;
 
 //------------------------------------------------------------------------------
-// Set DEBUG to 1 for lots of lovely debug output
+// Uncomment DEBUG for lots of lovely debug output
 //
-#define DEBUG  0
+// #define DEBUG
 
 //------------------------------------------------------------------------------
 // Debug directives
 //
-#if DEBUG
+#ifdef DEBUG
 #	define DBG_PRINT(...)    Serial.print(__VA_ARGS__)
 #	define DBG_PRINTLN(...)  Serial.println(__VA_ARGS__)
 #else
@@ -180,7 +184,9 @@ class decode_results
 //------------------------------------------------------------------------------
 // Decoded value for NEC when a repeat code is received
 //
-#define REPEAT 0xFFFFFFFF
+#ifdef DECODE_NEC
+	#define REPEAT 0xFFFFFFFF
+#endif
 
 //------------------------------------------------------------------------------
 // Main class for receiving IR
@@ -202,70 +208,70 @@ class IRrecv
 		int   compare    (unsigned int oldval, unsigned int newval) ;
 
 		//......................................................................
-#		if (DECODE_RC5 || DECODE_RC6)
+#		if defined(DECODE_RC5) || defined(DECODE_RC6)
 			// This helper function is shared by RC5 and RC6
 			int  getRClevel (decode_results *results,  int *offset,  int *used,  int t1) ;
 #		endif
-#		if DECODE_RC5
+#		ifdef DECODE_RC5
 			bool  decodeRC5        (decode_results *results) ;
 #		endif
-#		if DECODE_RC6
+#		ifdef DECODE_RC6
 			bool  decodeRC6        (decode_results *results) ;
 #		endif
 		//......................................................................
-#		if DECODE_NEC
+#		ifdef DECODE_NEC
 			bool  decodeNEC        (decode_results *results) ;
 #		endif
 		//......................................................................
-#		if DECODE_SONY
+#		ifdef DECODE_SONY
 			bool  decodeSony       (decode_results *results) ;
 #		endif
 		//......................................................................
-#		if DECODE_PANASONIC
+#		ifdef DECODE_PANASONIC
 			bool  decodePanasonic  (decode_results *results) ;
 #		endif
 		//......................................................................
-#		if DECODE_JVC
+#		ifdef DECODE_JVC
 			bool  decodeJVC        (decode_results *results) ;
 #		endif
 		//......................................................................
-#		if DECODE_SAMSUNG
+#		ifdef DECODE_SAMSUNG
 			bool  decodeSAMSUNG    (decode_results *results) ;
 #		endif
 		//......................................................................
-#		if DECODE_WHYNTER
+#		ifdef DECODE_WHYNTER
 			bool  decodeWhynter    (decode_results *results) ;
 #		endif
 		//......................................................................
-#		if DECODE_AIWA_RC_T501
+#		ifdef DECODE_AIWA_RC_T501
 			bool  decodeAiwaRCT501 (decode_results *results) ;
 #		endif
 		//......................................................................
-#		if DECODE_LG
+#		ifdef DECODE_LG
 			bool  decodeLG         (decode_results *results) ;
 #		endif
 		//......................................................................
-#		if DECODE_SANYO
+#		ifdef DECODE_SANYO
 			bool  decodeSanyo      (decode_results *results) ;
 #		endif
 		//......................................................................
-#		if DECODE_MITSUBISHI
+#		ifdef DECODE_MITSUBISHI
 			bool  decodeMitsubishi (decode_results *results) ;
 #		endif
 		//......................................................................
-#		if DECODE_DISH
+#		ifdef DECODE_DISH
 			bool  decodeDish (decode_results *results) ; // NOT WRITTEN
 #		endif
 		//......................................................................
-#		if DECODE_SHARP
+#		ifdef DECODE_SHARP
 			bool  decodeSharp (decode_results *results) ; // NOT WRITTEN
 #		endif
 		//......................................................................
-#		if DECODE_DENON
+#		ifdef DECODE_DENON
 			bool  decodeDenon (decode_results *results) ;
 #		endif
 //......................................................................
-#		if DECODE_LEGO_PF
+#		ifdef DECODE_LEGO_PF
 			bool  decodeLegoPowerFunctions (decode_results *results) ;
 #		endif
 } ;
@@ -285,26 +291,26 @@ class IRsend
 		void  sendRaw     		(const unsigned int buf[],  unsigned int len,  unsigned int hz) ;
 
 		//......................................................................
-#		if SEND_RC5
+#		ifdef SEND_RC5
 			void  sendRC5        (unsigned long data,  int nbits) ;
 #		endif
-#		if SEND_RC6
+#		ifdef SEND_RC6
 			void  sendRC6        (unsigned long data,  int nbits) ;
 #		endif
 		//......................................................................
-#		if SEND_NEC
+#		ifdef SEND_NEC
 			void  sendNEC        (unsigned long data,  int nbits) ;
 #		endif
 		//......................................................................
-#		if SEND_SONY
+#		ifdef SEND_SONY
 			void  sendSony       (unsigned long data,  int nbits) ;
 #		endif
 		//......................................................................
-#		if SEND_PANASONIC
+#		ifdef SEND_PANASONIC
 			void  sendPanasonic  (unsigned int address,  unsigned long data) ;
 #		endif
 		//......................................................................
-#		if SEND_JVC
+#		ifdef SEND_JVC
 			// JVC does NOT repeat by sending a separate code (like NEC does).
 			// The JVC protocol repeats by skipping the header.
 			// To send a JVC repeat signal, send the original code value
@@ -312,48 +318,48 @@ class IRsend
 			void  sendJVC        (unsigned long data,  int nbits,  bool repeat) ;
 #		endif
 		//......................................................................
-#		if SEND_SAMSUNG
+#		ifdef SEND_SAMSUNG
 			void  sendSAMSUNG    (unsigned long data,  int nbits) ;
 #		endif
 		//......................................................................
-#		if SEND_WHYNTER
+#		ifdef SEND_WHYNTER
 			void  sendWhynter    (unsigned long data,  int nbits) ;
 #		endif
 		//......................................................................
-#		if SEND_AIWA_RC_T501
+#		ifdef SEND_AIWA_RC_T501
 			void  sendAiwaRCT501 (int code) ;
 #		endif
 		//......................................................................
-#		if SEND_LG
+#		ifdef SEND_LG
 			void  sendLG         (unsigned long data,  int nbits) ;
 #		endif
 		//......................................................................
-#		if SEND_SANYO
+#		ifdef SEND_SANYO
 			void  sendSanyo      ( ) ; // NOT WRITTEN
 #		endif
 		//......................................................................
-#		if SEND_MISUBISHI
+#		ifdef SEND_MISUBISHI
 			void  sendMitsubishi ( ) ; // NOT WRITTEN
 #		endif
 		//......................................................................
-#		if SEND_DISH
+#		ifdef SEND_DISH
 			void  sendDISH       (unsigned long data,  int nbits) ;
 #		endif
 		//......................................................................
-#		if SEND_SHARP
+#		ifdef SEND_SHARP
 			void  sendSharpRaw   (unsigned long data,  int nbits) ;
 			void  sendSharp      (unsigned int address,  unsigned int command) ;
 #		endif
 		//......................................................................
-#		if SEND_DENON
+#		ifdef SEND_DENON
 			void  sendDenon      (unsigned long data,  int nbits) ;
 #		endif
 		//......................................................................
-#		if SEND_PRONTO
+#		ifdef SEND_PRONTO
 			void  sendPronto     (char* code,  bool repeat,  bool fallback) ;
 #		endif
 //......................................................................
-#		if SEND_LEGO_PF
+#		ifdef SEND_LEGO_PF
 			void  sendLegoPowerFunctions (uint16_t data, bool repeat = true) ;
 #		endif
 } ;
@@ -374,26 +380,26 @@ class IRemulate
 		void  emulateRaw     		(const unsigned int buf[],  unsigned int len) ;
 
 		//......................................................................
-#		if EMULATE_RC5
+#		ifdef EMULATE_RC5
 			// void  emulateRC5        (unsigned long data,  int nbits) ;
 #		endif
-#		if EMULATE_RC6
+#		ifdef EMULATE_RC6
 			// void  emulateRC6        (unsigned long data,  int nbits) ;
 #		endif
 		//......................................................................
-#		if EMULATE_NEC
+#		ifdef EMULATE_NEC
 			void  emulateNEC        (unsigned long data,  int nbits) ;
 #		endif
 		//......................................................................
-#		if EMULATE_SONY
+#		ifdef EMULATE_SONY
 			// void  emulateSony       (unsigned long data,  int nbits) ;
 #		endif
 		//......................................................................
-#		if EMULATE_PANASONIC
+#		ifdef EMULATE_PANASONIC
 			// void  emulatePanasonic  (unsigned int address,  unsigned long data) ;
 #		endif
 		//......................................................................
-#		if EMULATE_JVC
+#		ifdef EMULATE_JVC
 			// JVC does NOT repeat by sending a separate code (like NEC does).
 			// The JVC protocol repeats by skipping the header.
 			// To send a JVC repeat signal, send the original code value
@@ -401,48 +407,48 @@ class IRemulate
 			// void  emulateJVC        (unsigned long data,  int nbits,  bool repeat) ;
 #		endif
 		//......................................................................
-#		if EMULATE_SAMSUNG
+#		ifdef EMULATE_SAMSUNG
 			// void  emulateSAMSUNG    (unsigned long data,  int nbits) ;
 #		endif
 		//......................................................................
-#		if EMULATE_WHYNTER
+#		ifdef EMULATE_WHYNTER
 			// void  emulateWhynter    (unsigned long data,  int nbits) ;
 #		endif
 		//......................................................................
-#		if EMULATE_AIWA_RC_T501
+#		ifdef EMULATE_AIWA_RC_T501
 			// void  emulateAiwaRCT501 (int code) ;
 #		endif
 		//......................................................................
-#		if EMULATE_LG
+#		ifdef EMULATE_LG
 			// void  emulateLG         (unsigned long data,  int nbits) ;
 #		endif
 		//......................................................................
-#		if EMULATE_SANYO
+#		ifdef EMULATE_SANYO
 			// void  emulateSanyo      ( ) ; // NOT WRITTEN
 #		endif
 		//......................................................................
-#		if EMULATE_MISUBISHI
+#		ifdef EMULATE_MISUBISHI
 			// void  emulateMitsubishi ( ) ; // NOT WRITTEN
 #		endif
 		//......................................................................
-#		if EMULATE_DISH
+#		ifdef EMULATE_DISH
 			// void  emulateDISH       (unsigned long data,  int nbits) ;
 #		endif
 		//......................................................................
-#		if EMULATE_SHARP
+#		ifdef EMULATE_SHARP
 			// void  emulateSharpRaw   (unsigned long data,  int nbits) ;
 			// void  emulateSharp      (unsigned int address,  unsigned int command) ;
 #		endif
 		//......................................................................
-#		if EMULATE_DENON
+#		ifdef EMULATE_DENON
 			// void  emulateDenon      (unsigned long data,  int nbits) ;
 #		endif
 		//......................................................................
-#		if EMULATE_PRONTO
+#		ifdef EMULATE_PRONTO
 			// void  emulatePronto     (char* code,  bool repeat,  bool fallback) ;
 #		endif
 //......................................................................
-#		if EMULATE_LEGO_PF
+#		ifdef EMULATE_LEGO_PF
 			// void  emulateLegoPowerFunctions (uint16_t data, bool repeat = true) ;
 #		endif
 

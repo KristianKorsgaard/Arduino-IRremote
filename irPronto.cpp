@@ -8,7 +8,7 @@
 #	define PRONTO_NOFALLBACK  false
 #endif
 
-#if SEND_PRONTO
+#ifdef SEND_PRONTO
 
 //******************************************************************************
 #if TEST

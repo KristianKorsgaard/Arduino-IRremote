@@ -9,13 +9,15 @@
 //                              J       V     CCCC
 //==============================================================================
 
-#define JVC_BITS           16
-#define JVC_HDR_MARK     8000
-#define JVC_HDR_SPACE    4000
-#define JVC_BIT_MARK      600
-#define JVC_ONE_SPACE    1600
-#define JVC_ZERO_SPACE    550
-#define JVC_RPT_LENGTH  60000
+#if defined(SEND_JVC) || defined(DECODE_JVC) || defined(EMULATE_JVC)
+	#define JVC_BITS           16
+	#define JVC_HDR_MARK     8000
+	#define JVC_HDR_SPACE    4000
+	#define JVC_BIT_MARK      600
+	#define JVC_ONE_SPACE    1600
+	#define JVC_ZERO_SPACE    550
+	#define JVC_RPT_LENGTH  60000
+#endif
 
 //+=============================================================================
 // JVC does NOT repeat by sending a separate code (like NEC does).
@@ -23,7 +25,7 @@
 // To send a JVC repeat signal, send the original code value
 //   and set 'repeat' to true
 //
-#if SEND_JVC
+#ifdef SEND_JVC
 void  IRsend::sendJVC (unsigned long data,  int nbits,  bool repeat)
 {
 	// Set IR carrier frequency
@@ -53,7 +55,7 @@ void  IRsend::sendJVC (unsigned long data,  int nbits,  bool repeat)
 #endif
 
 //+=============================================================================
-#if DECODE_JVC
+#ifdef DECODE_JVC
 bool  IRrecv::decodeJVC (decode_results *results)
 {
 	long  data   = 0;
@@ -98,4 +100,3 @@ bool  IRrecv::decodeJVC (decode_results *results)
 	return true;
 }
 #endif
-

@@ -9,21 +9,23 @@
 //    M   M  IIIII   T    SSSS    UUU   BBBBB  IIIII  SSSS   H   H  IIIII
 //==============================================================================
 
-// Looks like Sony except for timings, 48 chars of data and time/space different
+#if defined(SEND_MITSUBISHI) || defined(DECODE_MITSUBISHI) || defined(EMULATE_MITSUBISHI)
+  // Looks like Sony except for timings, 48 chars of data and time/space different
 
-#define MITSUBISHI_BITS 16
+  #define MITSUBISHI_BITS 16
 
-// Mitsubishi RM 75501
-// 14200 7 41 7 42 7 42 7 17 7 17 7 18 7 41 7 18 7 17 7 17 7 18 7 41 8 17 7 17 7 18 7 17 7
-// #define MITSUBISHI_HDR_MARK	250  // seen range 3500
-#define MITSUBISHI_HDR_SPACE	350 //  7*50+100
-#define MITSUBISHI_ONE_MARK	1950 // 41*50-100
-#define MITSUBISHI_ZERO_MARK  750 // 17*50-100
-// #define MITSUBISHI_DOUBLE_SPACE_USECS  800  // usually ssee 713 - not using ticks as get number wrapround
-// #define MITSUBISHI_RPT_LENGTH 45000
+  // Mitsubishi RM 75501
+  // 14200 7 41 7 42 7 42 7 17 7 17 7 18 7 41 7 18 7 17 7 17 7 18 7 41 8 17 7 17 7 18 7 17 7
+  // #define MITSUBISHI_HDR_MARK	250  // seen range 3500
+  #define MITSUBISHI_HDR_SPACE	350 //  7*50+100
+  #define MITSUBISHI_ONE_MARK	1950 // 41*50-100
+  #define MITSUBISHI_ZERO_MARK  750 // 17*50-100
+  // #define MITSUBISHI_DOUBLE_SPACE_USECS  800  // usually ssee 713 - not using ticks as get number wrapround
+  // #define MITSUBISHI_RPT_LENGTH 45000
+#endif
 
 //+=============================================================================
-#if DECODE_MITSUBISHI
+#ifdef DECODE_MITSUBISHI
 bool  IRrecv::decodeMitsubishi (decode_results *results)
 {
   // Serial.print("?!? decoding Mitsubishi:");Serial.print(irparams.rawlen); Serial.print(" want "); Serial.println( 2 * MITSUBISHI_BITS + 2);
@@ -82,4 +84,3 @@ bool  IRrecv::decodeMitsubishi (decode_results *results)
   return true;
 }
 #endif
-

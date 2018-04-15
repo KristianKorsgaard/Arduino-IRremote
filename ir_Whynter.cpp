@@ -9,17 +9,19 @@
 //                WWW   H   H    Y   N   N   T   EEEEE  R   R
 //==============================================================================
 
-#define WHYNTER_BITS          32
-#define WHYNTER_HDR_MARK    2850
-#define WHYNTER_HDR_SPACE   2850
-#define WHYNTER_BIT_MARK     750
-#define WHYNTER_ONE_MARK     750
-#define WHYNTER_ONE_SPACE   2150
-#define WHYNTER_ZERO_MARK    750
-#define WHYNTER_ZERO_SPACE   750
+#if defined(SEND_WHYNTER) || defined(DECODE_WHYNTER) || defined(EMULATE_WHYNTER)
+	#define WHYNTER_BITS          32
+	#define WHYNTER_HDR_MARK    2850
+	#define WHYNTER_HDR_SPACE   2850
+	#define WHYNTER_BIT_MARK     750
+	#define WHYNTER_ONE_MARK     750
+	#define WHYNTER_ONE_SPACE   2150
+	#define WHYNTER_ZERO_MARK    750
+	#define WHYNTER_ZERO_SPACE   750
+#endif
 
 //+=============================================================================
-#if SEND_WHYNTER
+#ifdef SEND_WHYNTER
 void  IRsend::sendWhynter (unsigned long data,  int nbits)
 {
 	// Set IR carrier frequency
@@ -51,7 +53,7 @@ void  IRsend::sendWhynter (unsigned long data,  int nbits)
 #endif
 
 //+=============================================================================
-#if DECODE_WHYNTER
+#ifdef DECODE_WHYNTER
 bool  IRrecv::decodeWhynter (decode_results *results)
 {
 	long  data   = 0;
@@ -88,4 +90,3 @@ bool  IRrecv::decodeWhynter (decode_results *results)
 	return true;
 }
 #endif
-

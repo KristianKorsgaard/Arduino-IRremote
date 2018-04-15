@@ -9,16 +9,18 @@
 //             SSSS   A   A  M   M  SSSS    UUU   N   N   GGG
 //==============================================================================
 
-#define SAMSUNG_BITS          32
-#define SAMSUNG_HDR_MARK    5000
-#define SAMSUNG_HDR_SPACE   5000
-#define SAMSUNG_BIT_MARK     560
-#define SAMSUNG_ONE_SPACE   1600
-#define SAMSUNG_ZERO_SPACE   560
-#define SAMSUNG_RPT_SPACE   2250
+#if defined(SEND_SAMSUNG) || defined(DECODE_SAMSUNG) || defined(EMULATE_SAMSUNG)
+	#define SAMSUNG_BITS          32
+	#define SAMSUNG_HDR_MARK    5000
+	#define SAMSUNG_HDR_SPACE   5000
+	#define SAMSUNG_BIT_MARK     560
+	#define SAMSUNG_ONE_SPACE   1600
+	#define SAMSUNG_ZERO_SPACE   560
+	#define SAMSUNG_RPT_SPACE   2250
+#endif
 
 //+=============================================================================
-#if SEND_SAMSUNG
+#ifdef SEND_SAMSUNG
 void  IRsend::sendSAMSUNG (unsigned long data,  int nbits)
 {
 	// Set IR carrier frequency
@@ -48,7 +50,7 @@ void  IRsend::sendSAMSUNG (unsigned long data,  int nbits)
 //+=============================================================================
 // SAMSUNGs have a repeat only 4 items long
 //
-#if DECODE_SAMSUNG
+#ifdef DECODE_SAMSUNG
 bool  IRrecv::decodeSAMSUNG (decode_results *results)
 {
 	long  data   = 0;
@@ -89,4 +91,3 @@ bool  IRrecv::decodeSAMSUNG (decode_results *results)
 	return true;
 }
 #endif
-

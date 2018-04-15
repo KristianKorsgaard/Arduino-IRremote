@@ -9,16 +9,18 @@
 //                          SSSS    OOO   N   N    Y
 //==============================================================================
 
-#define SONY_BITS                   12
-#define SONY_HDR_MARK             2400
-#define SONY_HDR_SPACE             600
-#define SONY_ONE_MARK             1200
-#define SONY_ZERO_MARK             600
-#define SONY_RPT_LENGTH          45000
-#define SONY_DOUBLE_SPACE_USECS    500  // usually ssee 713 - not using ticks as get number wrapround
+#if defined(SEND_SONY) || defined(DECODE_SONY) || defined(EMULATE_SONY)
+	#define SONY_BITS                   12
+	#define SONY_HDR_MARK             2400
+	#define SONY_HDR_SPACE             600
+	#define SONY_ONE_MARK             1200
+	#define SONY_ZERO_MARK             600
+	#define SONY_RPT_LENGTH          45000
+	#define SONY_DOUBLE_SPACE_USECS    500  // usually ssee 713 - not using ticks as get number wrapround
+#endif
 
 //+=============================================================================
-#if SEND_SONY
+#ifdef SEND_SONY
 void  IRsend::sendSony (unsigned long data,  int nbits)
 {
 	// Set IR carrier frequency
@@ -44,7 +46,7 @@ void  IRsend::sendSony (unsigned long data,  int nbits)
 #endif
 
 //+=============================================================================
-#if DECODE_SONY
+#ifdef DECODE_SONY
 bool  IRrecv::decodeSony (decode_results *results)
 {
 	long  data   = 0;
@@ -92,4 +94,3 @@ bool  IRrecv::decodeSony (decode_results *results)
 	return true;
 }
 #endif
-

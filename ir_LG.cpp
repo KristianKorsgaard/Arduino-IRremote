@@ -9,17 +9,19 @@
 //                               LLLLL   GGG
 //==============================================================================
 
-#define LG_BITS 28
+#if defined(SEND_LG) || defined(DECODE_LG) || defined(EMULATE_LG)
+  #define LG_BITS 28
 
-#define LG_HDR_MARK 8000
-#define LG_HDR_SPACE 4000
-#define LG_BIT_MARK 600
-#define LG_ONE_SPACE 1600
-#define LG_ZERO_SPACE 550
-#define LG_RPT_LENGTH 60000
+  #define LG_HDR_MARK 8000
+  #define LG_HDR_SPACE 4000
+  #define LG_BIT_MARK 600
+  #define LG_ONE_SPACE 1600
+  #define LG_ZERO_SPACE 550
+  #define LG_RPT_LENGTH 60000
+#endif
 
 //+=============================================================================
-#if DECODE_LG
+#ifdef DECODE_LG
 bool  IRrecv::decodeLG (decode_results *results)
 {
     long  data   = 0;
@@ -53,7 +55,7 @@ bool  IRrecv::decodeLG (decode_results *results)
 #endif
 
 //+=============================================================================
-#if SEND_LG
+#ifdef SEND_LG
 void  IRsend::sendLG (unsigned long data,  int nbits)
 {
     // Set IR carrier frequency
@@ -77,4 +79,3 @@ void  IRsend::sendLG (unsigned long data,  int nbits)
     space(0);  // Always end with the LED off
 }
 #endif
-

@@ -22,17 +22,19 @@
 //   Sharp LCD TV:
 //   http://lirc.sourceforge.net/remotes/sharp/GA538WJSA
 
-#define SHARP_BITS             15
-#define SHARP_BIT_MARK        245
-#define SHARP_ONE_SPACE      1805
-#define SHARP_ZERO_SPACE      795
-#define SHARP_GAP          600000
-#define SHARP_RPT_SPACE      3000
+#if defined(SEND_SHARP) || defined(DECODE_SHARP) || defined(EMULATE_SHARP)
+	#define SHARP_BITS             15
+	#define SHARP_BIT_MARK        245
+	#define SHARP_ONE_SPACE      1805
+	#define SHARP_ZERO_SPACE      795
+	#define SHARP_GAP          600000
+	#define SHARP_RPT_SPACE      3000
 
-#define SHARP_TOGGLE_MASK  0x3FF
+	#define SHARP_TOGGLE_MASK  0x3FF
+#endif
 
 //+=============================================================================
-#if SEND_SHARP
+#ifdef SEND_SHARP
 void  IRsend::sendSharpRaw (unsigned long data,  int nbits)
 {
 	enableIROut(38);
@@ -63,7 +65,7 @@ void  IRsend::sendSharpRaw (unsigned long data,  int nbits)
 // Sharp send compatible with data obtained through decodeSharp()
 //                                                  ^^^^^^^^^^^^^ FUNCTION MISSING!
 //
-#if SEND_SHARP
+#ifdef SEND_SHARP
 void  IRsend::sendSharp (unsigned int address,  unsigned int command)
 {
 	sendSharpRaw((address << 10) | (command << 2) | 2, SHARP_BITS);

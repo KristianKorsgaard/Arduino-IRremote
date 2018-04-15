@@ -102,20 +102,22 @@ Regards,
 //
 //==============================================================================
 
-#define BITS          32  // The number of bits in the command
+#if defined(SEND_SHUZU) || defined(DECODE_SHUZU) || defined(EMULATE_SHUZU)
+	#define BITS          32  // The number of bits in the command
 
-#define HDR_MARK    1000  // The length of the Header:Mark
-#define HDR_SPACE   2000  // The lenght of the Header:Space
+	#define HDR_MARK    1000  // The length of the Header:Mark
+	#define HDR_SPACE   2000  // The lenght of the Header:Space
 
-#define BIT_MARK    3000  // The length of a Bit:Mark
-#define ONE_SPACE   4000  // The length of a Bit:Space for 1's
-#define ZERO_SPACE  5000  // The length of a Bit:Space for 0's
+	#define BIT_MARK    3000  // The length of a Bit:Mark
+	#define ONE_SPACE   4000  // The length of a Bit:Space for 1's
+	#define ZERO_SPACE  5000  // The length of a Bit:Space for 0's
 
-#define OTHER       1234  // Other things you may need to define
+	#define OTHER       1234  // Other things you may need to define
+#endif
 
 //+=============================================================================
 //
-#if SEND_SHUZU
+#ifdef SEND_SHUZU
 void  IRsend::sendShuzu (unsigned long data,  int nbits)
 {
 	// Set IR carrier frequency
@@ -144,7 +146,7 @@ void  IRsend::sendShuzu (unsigned long data,  int nbits)
 
 //+=============================================================================
 //
-#if DECODE_SHUZU
+#ifdef DECODE_SHUZU
 bool  IRrecv::decodeShuzu (decode_results *results)
 {
 	unsigned long  data   = 0;  // Somewhere to build our code
